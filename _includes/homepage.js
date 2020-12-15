@@ -1,29 +1,46 @@
 var $ = jQuery;
 
-var resumeAction = $('#resume-graphics');
-var pauseAction = $('#pause-graphics');
+var toggleAction = $('#toggle-graphics');
+var toggleText = $('#toggle-text');
+var toggleText2 = $('#toggle-text2');
+var pauseIcon = $('#pause-icon');
+var resumeIcon = $('#resume-icon');
 var pageHeroAccessibilityControls = $('#hero-accessibility-controls');
+var toggleLink = $('#toggle-graphics');
 
 var paused = true;
 
+function toggle() {
+  if (paused) {
+    return resume();
+  } else {
+    return pause();
+  }
+}
+
 function pause() {
   paused = true;
-  pauseAction.hide();
-  resumeAction.show();
+  pauseIcon.hide();
+  resumeIcon.show();
+  toggleText.text('Resume');
+  toggleText2.text('Resume animations and start showing new graphics');
+  toggleLink.prop('title', 'Resume graphics');
   pageHeroAccessibilityControls.trigger("hero-pause");
   return false;
 }
 
 function resume() {
   paused = false;
-  resumeAction.hide();
-  pauseAction.show();
+  pauseIcon.show();
+  resumeIcon.hide();
+  toggleLink.prop('title', 'Pause graphics');
+  toggleText.text('Pause');
+  toggleText2.text('Pause animations and stop showing new graphics');
   pageHeroAccessibilityControls.trigger("hero-resume");
   return false;
 }
 
-resumeAction.click(resume);
-pauseAction.click(pause);
+toggleAction.click(toggle);
 
 resume(); // startup
 
